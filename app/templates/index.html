@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hisobchi</title>
+    <link rel="stylesheet" href=" {% static "css/style.css" %} ">
+    <link rel="stylesheet" href="{% static "css/stylereg.css" %}">
+
+
+
+</head>
+<body style="padding-bottom:1000px;">
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-switch">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <span class="logo-text">Hisobchi.uz</span>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Bosh Sahifa</a></li>
+                    <li><a href="#">Xizmatlar</a></li>
+                    <li><a href="#">Reestr</a></li>
+                    <li><a href="#">Kontaktlar</a></li>
+                    <li><a href="#">Biz haqimizda</a></li>
+                   
+                </ul>
+            </nav>
+            {% if request.user.is_authenticated %}
+                {{ request.user.last_name }} {{ request.user.first_name }}
+                <div class="auth-buttons">
+                <a href="{% url "logout" %}">  <button class="login-btn">Chiqish</button></a>
+              
+            </div>
+            {% else %}
+            <div class="auth-buttons">
+              <a href="{% url "login" %}">  <button class="login-btn">Login</button></a>
+              <a href="{% url "register" %}">  <button  class="register-btn">Registratsiya</button></a>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+<div  class="asosiy">
+  <div class="asosiy1">
+<img  class="img1" src="{% static "icons/fon.wb" %}" alt="">
+</div></div>
+
+
+
+
+     <!-- Services Section -->
+     <section class="services-section">
+       <!-- Card 1 -->
+       <div class="service-card">
+         <h2 class="service-card-title">Xizmatlar</h2>
+         <p class="service-card-text">
+           Lorem sdad rf wef wf sfe egrw ef ererg wkf wr gekr geklkergr rg erer efrg egergregerg
+           efrgergreergerergergre n ge rerg re gke gre gke grek rerg exgre gkek jergejrg qwde eww
+           eddw ew ewe erer
+         </p>
+         <div class="service-card-arrow">&#8594;</div>
+       </div>
+
+       <!-- Card 2 -->
+       <div class="service-card">
+         <h2 class="service-card-title">Buxgalteriya</h2>
+         <p class="service-card-text">
+           Lorem sdad rf wef wf sfe egrw ef ererg wkf wr gekr geklkergr rg erer efrg egergregerg
+           efrgergreergerergergre n ge rerg re gke gre gke grek rerg exgre gkek jergejrg qwde eww
+           eddw ew ewe erer
+         </p>
+         <div class="service-card-arrow">&#8594;</div>
+       </div>
+     </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="negabiz">
+  <span class="subnegabiz">Nega aynan biz?</span>
+</div>
+
+
+
+
+    <div class="card-container">
+        <!-- Card 1 -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <!-- Front side content -->
+              <img src="{% static "icons/shield.svg" %}" alt="Icon 1" class="card-icon" />
+              <h3>Havfsizlik</h3>
+            </div>
+            <div class="flip-card-back">
+              <!-- Back side content -->
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Sed do eiusmod tempor incididunt ut labore.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="{% static "icons/quality.svg" %}" alt="Icon 2" class="card-icon" />
+              <h3>Professionalizm</h3>
+            </div>
+            <div class="flip-card-back">
+              <p>
+                Nulla facilisi. Morbi eleifend nulla id sapien blandit bibendum.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="{% static "icons/target.svg" %}" alt="Icon 3" class="card-icon" />
+              <h3>Punktuallik</h3>
+            </div>
+            <div class="flip-card-back">
+              <p>
+                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+    <!-- Contact Form Section -->
+    <div class="contact-container">
+        <h1>Biz bilan bog'laning</h1>
+        <form class="contact-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Ism</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Ismingizni kiriting" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Familiya</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Familiyangizni kiriting" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Emailingizni kiriting" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefon raqam</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+998 90 123 45 67" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="message">Habar</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Habaringizni kiriting"></textarea>
+                </div>
+            </div>
+            <button type="submit">Yuborish</button>
+        </form>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="subfooter"><p>© Copyright <strong>Sardorbek Khamrakulov</strong> | 2025</p>
+</div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,377 @@
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    padding-left: 20px;
+    padding-right:20px;
+}
+
+/* Header uchun styling */
+header {
+    background-color: #f0f8ff;
+    border-bottom: 1px solid #ddd;
+
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  
+
+}
+
+.hidden { display: none; }
+.img1{
+  width: 100%;
+  height: 500px;
+}
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo-switch {
+    display: flex;
+    align-items: center;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 24px;
+    margin-right: 10px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+.switch input:checked + .slider {
+    background-color: #007bff;
+}
+.switch input:checked + .slider:before {
+    transform: translateX(21px);
+}
+.slider.round {
+    border-radius: 34px;
+}
+.logo-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+.nav-links li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.nav-links li a:hover {
+    color: #000080;
+}
+.auth-buttons{
+
+display: flex;
+justify-content: space-between;
+grid-gap: 15px;
+}
+.auth-buttons button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: 1px solid #000080;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #000080;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+.auth-buttons .login-btn:hover {
+    background-color: #000080;
+    color: #fff;
+}
+.auth-buttons .register-btn {
+    background-color: #000080;
+    color: #fff;
+    border: 1px solid #000080;
+}
+.auth-buttons .register-btn:hover {
+    background-color: #2a2aeb;
+}
+
+/* Kontakt formasi uchun styling */
+.contact-container {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.contact-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+.form-group {
+    flex: 1;
+    min-width: 250px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+.form-group:last-child {
+    margin-right: 0;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+textarea {
+    resize: vertical;
+}
+button[type="submit"] {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 24px;
+    background-color: #000080;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+button[type="submit"]:hover {
+  opacity: 0.8;
+}/* Container that holds all the flip-cards side by side */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;;
+  margin-top: 30px;
+}
+
+/* Each flip-card is a "3D perspective" container */
+.flip-card {
+  background-color: transparent;
+  width: 300px;
+  height: 350px;
+  perspective: 1000px; /* This gives the 3D perspective */
+}
+
+/* The inner wrapper that we will rotate */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;       /* Smooth rotation transition */
+  transform-style: preserve-3d;    /* Allows child elements to be in 3D */
+}
+
+/* Rotate the inner content on hover */
+.flip-card:hover .flip-card-inner {
+  transform: rotateX(180deg); /* You can switch to rotateY(180deg) if you want a horizontal flip */
+}
+
+/* Front and back sides share some styles */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hide the “back” while not flipped */
+  border-radius: 8px;
+  overflow: hidden;            /* Ensures edges are rounded if you set border-radius */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Front side styling */
+.flip-card-front {
+  background: #ffffff;
+  color: #000;
+}
+
+/* Back side styling */
+.flip-card-back {
+  background: #0d6efd; /* Example color, use any you like */
+  color: #fff;
+  transform: rotateX(180deg); /* This flips it so it’s hidden behind the front initially */
+}
+
+/* Example styling for images/icons */
+.card-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+  display: block;
+}
+.negabiz{
+display:flex;
+justify-content:center;
+align-items:center;
+padding-top:45px;
+
+}
+.subnegabiz{
+font-size:30px;
+font-weight:bold;
+font-style: solid;
+opacity: 0,8;
+
+}
+
+* {
+
+  box-sizing: border-box;
+}
+
+
+
+/* Header Banner */
+.header-banner {
+  background: linear-gradient(135deg, #059393, #047373);
+  padding: 60px 20px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.asosiy{
+  margin-top:50px;
+width:100%;
+height:500px;
+
+display: flex;
+justify-content: center;
+
+}
+.asosiy1{
+  background-color:lightblue;
+  width:1000px;
+  height:100%;
+}
+
+
+.header-title {
+
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.header-subtitle {
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+/* Services Section */
+.services-section {
+  display: flex;
+  gap:60px;
+  flex-wrap: wrap;
+
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+
+}
+
+.service-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  flex: 1 1 300px;
+  min-width: 300px;
+  max-width: 450px;
+  padding: 20px;
+  position: relative;
+}
+
+.service-card-title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.service-card-text {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.service-card-arrow {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+}
+.subfooter{
+display: flex;
+justify-content: center;
+
+
+}
+
+.btn {
+  background-color: white;
+  border: 2px solid #407BFF;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 5px;
+  height: 30px;      /* Reduce button height */
+  padding: 5px 10px; /* Reduce inner spacing */
+  font-size: 14px;
+}
+
+.btn.active, .btn:focus {
+  background-color:rgb(209, 225, 251);
+}

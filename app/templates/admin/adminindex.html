@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{% static 'css/admin/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "css/admin/style.css" %}">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+
+</head>
+<body>
+
+ <main class="main-content">
+        <!-- Subheader -->
+        <header class="subheader">
+            <div class="navbar">
+                <button class="menu-btn">☰</button>
+                <div class="author">{{ request.user.last_name }} {{ request.user.first_name }}</div>
+                <a href="{% url 'adminpage'  %}"class="logo">Ortga qaytish</a>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Qidirish...">
+                <button class="search-button">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/search.png" alt="Qidirish">
+                </button>
+            </div>
+        </header>
+    
+
+
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Table Section -->
+         <section class="table-container">
+            <div class="text-excel">
+            {% for i in types %}
+                    <a href="{% url 'adminpaging' year=year month=month_name typeid=i.id %}" class="btn-link">
+                    <button class="btn" id="btn-{{ i.id }}">{{ i.type }}</button></a>
+            
+            {% endfor %}
+            
+         
+                    
+                    <div class="date">
+                        <button type="button" class="adder">Mahsulot qo'shish</button>
+                        
+                        <span></span>
+                    </div>
+                    <!-- Modal Popup (Hidden by Default) -->
+                <div id="modal-add-items" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span id="close-add-items" class="close">&times;</span>
+
+                        <h2>Янги маҳсулот қўшиш</h2>
+
+                        <!-- Item Form -->
+                        <form id="form-add-item" method="post" >
+                            {% csrf_token %}
+
+                            <label for="input-item-name">Маҳсулот номини киритинг</label>
+                            <input type="text" id="input-item-name" name="type_name" placeholder="Маҳсулот номини киритинг" required>
+                            <input type="hidden" id="hidden-item-date" name="type_date" value="{{types.all.first.id}}">
+                            <label for="select-item-type">Малумотларини кўчирмоқчи бўлган маҳсулотни танланг (Ихтиёрий)</label>
+                            <select id="select-item-type" name="type_id">
+                                <option value="">Малумотни танланг</option>
+                                {% for type in types %}
+                                <option value="{{ type.id }}" data-date="{{ type.date }}">{{ type.type }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <!-- Hidden input for type_date -->
+                            
+
+
+                            <!-- Save Button -->
+                            <button class="save-btn" type="submit" id="btn-save-item" data-url="{% url 'admincreatetype' %}">
+                                Сақлаш
+                        </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+                
+         </section>
+         <section class="table-container">
+                <div class="text-excel">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <h4>{{ name_of_month }} ойида ишчиларнинг бажарган ишлари</h4>
+                        <h2>{{ t.type }}</h2>
+                    </div>
+
+                    <div class="date-excel">
+                        <div class="date">{{month_name}}/{{ year }}</div>
+                        <button class="excel">
+                            <img class="excel-image" src="https://img.icons8.com/color/48/000000/microsoft-excel-2019.png" alt="Excel">
+                            Excel
+                        </button>
+                    </div>
+                </div>
+                <table>
+                <thead>
+
+                    <tr>
+                        <th >Ish nomi</th>
+                        
+                        {% for i in works1 %}
+                        <th>{{ i.work__work_name }}</th>
+                        {% endfor %}
+                        <th rowspan="2" >Jami</th>
+                    </tr>
+                    <tr>
+                        <th>Qiymat</th>
+                        {% for i in works1 %}
+                        <th>{{ i.work__price }}</th>
+                        {% endfor %}
+                       
+
+                    </tr>
+                </thead>
+                <tbody>
+                {% for j in worker1 %}
+                    <tr>
+                        <td>{{ j.worker__last_name }} {{ j.worker__name }}</td>
+                      
+                        {% for w in works1 %}
+
+                        <td onclick="editNumber(this)"> 
+                             
+                                {% for pro in progress %}
+                                    {% if pro.work.id == w.work__id and pro.worker.id == j.worker__id %}
+                                        <span class="number-display">
+                                            {% comment %} <div id="real-time-data" hx-get="/adminpage/" hx-trigger="every 5s" hx-swap="innerHTML"> {% endcomment %}
+                                                <p>
+                                                {{ pro.total_work_done|default:"0"}}
+                                                </p>
+                                            {% comment %} </div> {% endcomment %}
+                                         </span>
+                                        <form method="post" action = "update-progress-item/"class="edit-form" style="display: none;" onsubmit="submitForm(event, this, '{{ pro.id }}')">
+                                            {% csrf_token %}
+                                            <input class="inputs" type="number" name="progress_value"
+                                                value="0" 
+                                                min="0" step="1" oninput="validateInteger(this)">
+                                                <input type="hidden" name="year2" id="year2" value="{{ year }}">
+                                                <input type="hidden" name="month2" id="month2" value="{{ month_name }}">
+                                            <button class = "save-btn" type="submit">Saqlash</button>
+                                            
+                                        </form>
+                                    {% endif %}
+                                {% endfor %}
+                            
+                        </td>
+
+                        {% endfor %}
+                        <td>
+                            {% for val in sum_info %}
+                            
+                            {% if val.people_id == j.worker__id %}
+                                {{ val.sum_money}}
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <th>Jami</th>
+                        {% for t in total_work %}
+                        <td>{{ t.total }}</td>
+                        
+                        {% endfor %}
+                        <td>{{ total_sum }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+     </div>
+ <div id="flash-message" style="display: none;"></div>
+        <!-- Forms Section -->
+        <div class="forms-container">
+        
+            <div class="form-card"><form method="post" >
+            {% csrf_token %}
+                <h3>Ish qo‘shish</h3>
+                <input id="work-name" type="text" placeholder="Ish nomi">
+                <input id="work-price" min="0" type="number" placeholder="Qiymat">
+                <input id="mahsulot_turi1" type="hidden" name="mahsulot_turi1" value="{{ t.id }}">
+                <button id="save-btn"  class="save-btn"> Saqlash</button>
+            </form> </div>
+       
+        
+          <div class="form-card">
+                <form id="worker-form">
+                    {% csrf_token %}
+                    <h3>Ishchi qo‘shish</h3>
+                    <input type="text" name="name" placeholder="Ismi" required>
+                    <input type="text" name="last_name" placeholder="Familiyasi" required>
+                    <input type="hidden" name="year1" value="{{ year }}">
+                    <input type="hidden" name="month1" value="{{ month_name }}">
+
+
+                    <!-- Container for select fields -->
+                    <div id="select-container">
+                        <div class="select-group">
+                            <select name="work">
+                                {% for work in works %}
+                                    <option value="{{ work.id }}">{{ work.work_name }} - {{ work.price }} so'm</option>
+                                {% endfor %}
+                            </select>
+                            <button type="button" class="add-select">+</button>
+                            <button type="button" class="remove-select">-</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="save-btn">Saqlash</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+            
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let worksData = JSON.parse('{{ works_json|safe }}'); // Pass work data as JSON
+    let workerFormUrl = "{% url 'adminpage_create_worker' %}";
+</script>
+
+
+
+<script src="{% static 'js/admin/adminpage.js' %}"></script>
+
+
+
+
+
+</body>
+</html>
